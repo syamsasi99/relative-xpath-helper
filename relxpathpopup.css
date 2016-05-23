@@ -1,40 +1,105 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(static/material_icons/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(static/material_icons/MaterialIcons-Regular.woff2) format('woff2'),
+       url(static/material_icons/MaterialIcons-Regular.woff) format('woff'),
+       url(static/material_icons/MaterialIcons-Regular.ttf) format('truetype');
+}
 
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
 
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
 
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
 
 body {
-  background: #A4A4A4;
   display: flex;
-  font-family: Arial, Helvetica, sans-serif;
-  height: 10px;
   margin: 0;
+  padding: 0;
+  height: 220px;
   overflow: hidden;
-  padding: 2px;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+#extension-overlay {
+  padding: 1rem;
+  max-height: 220px;
+  background: rgba(51, 51, 51, 0.95);
+  display: flex;
+  flex-grow: 1;
+  font-size: 1rem;
+  justify-content: space-between;
+  border: solid 3px #f4c430;
+}
+
+.column-left, .column-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.column-left {
+  border-right: solid 1px grey;
+  padding-right: 2rem;
+}
+
+.column-right {
+  flex-grow: 1;
+  margin: 0 2rem;
+}
+
+label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+label[for="rel_xpath"] {
+  color: rgba(255, 198, 22, 0.9);;
 }
 
 textarea {
- border: 2px solid #765942;
-	border-radius: 10px;
-	height: 60px;
-	width: 400px;
+  font-family: Inconsolata, Courier, monospace;
+  border-radius: 3px;
+  resize: none;
+  min-height: 3rem;
+  padding: 0.5rem;
 }
 
-
-
-table#rel_path_helper_table{
-border-collapse:separate; 
-border-spacing:0.5em;
+#rel_xpath {
+  font-size: 1.25rem;
+  color: rgba(139, 107, 255, 1);
 }
 
-
-div.label{
-
-color: black;
-font-size: 150%;
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
 }
 
-textarea { 
-font-size: 15px; 
- font-family: Arial, Helvetica, sans-serif;
+.controls {
+  color: white;
 }
-
