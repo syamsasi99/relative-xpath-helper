@@ -1,0 +1,13 @@
+
+#rel_xpath_popup {
+  border-width: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  z-index: 12345678;
+  transform: translate3d(0, 0, 0);
+  transition: transform 1s ease-out;
+}
+

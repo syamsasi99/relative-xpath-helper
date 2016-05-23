@@ -1,0 +1,40 @@
+
+
+
+
+body {
+  background: #A4A4A4;
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 10px;
+  margin: 0;
+  overflow: hidden;
+  padding: 2px;
+}
+
+textarea {
+ border: 2px solid #765942;
+	border-radius: 10px;
+	height: 60px;
+	width: 400px;
+}
+
+
+
+table#rel_path_helper_table{
+border-collapse:separate; 
+border-spacing:0.5em;
+}
+
+
+div.label{
+
+color: black;
+font-size: 150%;
+}
+
+textarea { 
+font-size: 15px; 
+ font-family: Arial, Helvetica, sans-serif;
+}
+
