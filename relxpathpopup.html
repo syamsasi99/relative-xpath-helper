@@ -1,46 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-  
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="relxpathpopup.css">
   </head>
   <body id="rel_path_helper_table">
-  <div id="fb-root"></div>
+    <div id="fb-root"></div>
 
-  <table id="rel_path_helper_table" width="100%">
-      
-      <tr>
-      <td>
-      <div class="label"> XPath of First Element</div>
-      <textarea id="xpath_1" rows="4" cols="50"></textarea>
-      </td>
-      <td>
-      <div class="label"> XPath of Second Element</div>
-      <textarea id="xpath_2" rows="4" cols="50"></textarea>
-      </td>
-      <td>
-      </td>
-      </tr>
-      <tr>
-      <td>
-        <div class="label"> Relative XPath of First Element To Second Element</div>
-      <textarea id="rel_xpath" rows="4" cols="50"></textarea>
-   
-      </td>
-        <td>
-         <div class="label"> Final Result</div>
-      <textarea id="final_xpath_result" rows="4" cols="50"></textarea>
-        </td>
-          <td align="center">
-    <div>
-        <img id="toggle" src="down.png" alt="Mountain View" style="width:30px;height:30px;"/>
-	</div>
-   </td>
-
-      </tr>
-      </table>
-      
-     
+    <div id="extension-overlay">
+      <div class="column-left">
+        <div class="container">
+          <label for="xpath_1">XPath of First Element</label>
+          <textarea id="xpath_1" placeholder="Right-click anywhere on the page to select element"></textarea>
+        </div>
+        <div class="container">
+          <label for="xpath_2">XPath of Second Element</label>
+          <textarea id="xpath_2"></textarea>
+        </div>
+      </div>
+      <div class="column-right">
+        <div class="container">
+          <label for="rel_xpath">Relative XPath of First Element To Second Element</label>
+          <textarea id="rel_xpath" placeholder="Type in an expression..."></textarea>
+        </div>
+        <div class="container">
+          <label for="final_xpath_result">Final Result</label>
+          <textarea id="final_xpath_result" readonly></textarea>
+        </div>
+      </div>
+      <div class="column">
+        <a href=""><i id="toggle" class="material-icons controls">import_export</i></a>
+      </div>
+    </div>
 
     <script type="text/javascript" src="relxpathpopup.js"></script>
   </body>
