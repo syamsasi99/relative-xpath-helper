@@ -2,7 +2,7 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(static/material_icons/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: url(static/material_icons/MaterialIcons-Regular.eot); 
   src: local('Material Icons'),
        local('MaterialIcons-Regular'),
        url(static/material_icons/MaterialIcons-Regular.woff2) format('woff2'),
@@ -23,15 +23,12 @@
   white-space: nowrap;
   direction: ltr;
 
-  /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
+  /* Support for Chrome. */
   text-rendering: optimizeLegibility;
 
-  /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
 
-  /* Support for IE. */
   font-feature-settings: 'liga';
 }
 
@@ -92,8 +89,15 @@ textarea {
 #rel_xpath {
   font-size: 1.25rem;
   color: rgba(139, 107, 255, 1);
+  width: 75%;
+}
+#final_xpath_result{
+  width: 75%;
 }
 
+#xpath_1,#xpath_2{
+	font-size: 1.005rem;
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -102,4 +106,15 @@ textarea {
 
 .controls {
   color: white;
+}
+
+#fb{
+position: absolute;
+height: 5px;
+bottom: 50%; 
+right: 100%; 
+left: 85.5%; 
+}
+#facebook{
+color: white;	
 }

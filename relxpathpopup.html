@@ -14,27 +14,35 @@
       <div class="column-left">
         <div class="container">
           <label for="xpath_1">XPath of First Element</label>
-          <textarea id="xpath_1" placeholder="Right-click anywhere on the page to select element"></textarea>
+          <textarea id="xpath_1" placeholder="Right-click anywhere on the page to select element" readonly></textarea>
         </div>
         <div class="container">
           <label for="xpath_2">XPath of Second Element</label>
-          <textarea id="xpath_2"></textarea>
+          <textarea id="xpath_2" readonly></textarea>
         </div>
       </div>
       <div class="column-right">
         <div class="container">
           <label for="rel_xpath">Relative XPath of First Element To Second Element</label>
-          <textarea id="rel_xpath" placeholder="Type in an expression..."></textarea>
+          <textarea id="rel_xpath" placeholder="Right-Click on any two elements...  OR Type in an expression here and hit ENTER key..."></textarea>
         </div>
         <div class="container">
           <label for="final_xpath_result">Final Result</label>
+          <div>
+          <label for="final_xpath_result"  style="margin-right:10%;font-size:50%;">Tag Name</label>
+          <label for="final_xpath_result"  style="font-size:50%;">Tag Content</label>
+          
+          </div>
           <textarea id="final_xpath_result" readonly></textarea>
         </div>
       </div>
       <div class="column">
-        <a href=""><i id="toggle" class="material-icons controls">import_export</i></a>
+        <img id="toggle" src="down.png"  style="width:30px;height:30px;"/>        
       </div>
-    </div>
+       <div class="column" id="fb">
+        <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Frelative.xpath.helper&width=150&layout=standard&action=like&show_faces=true&share=true&height=150&appId" width="150" height="150" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+       </div>  
+      
 
     <script type="text/javascript" src="relxpathpopup.js"></script>
   </body>
