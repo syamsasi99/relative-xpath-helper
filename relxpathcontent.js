@@ -486,7 +486,7 @@ function updateRelativeXPath(xpath) {
 		
 		if((xpath.indexOf("/following-sibling::*")>-1) || (xpath.indexOf("/preceding-sibling::*")>-1)){
 			xpath = xpath.substring(0, xpath.length - 1);
-			xpath=xpath+firingElement2.tagName;
+			xpath=xpath+firingElement1.tagName;
 
 		}
 		results = document.evaluate(xpath, document, null,
