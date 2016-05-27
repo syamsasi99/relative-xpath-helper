@@ -4,7 +4,7 @@
 
 'use strict';
 
-var debug=true;
+var debug=false;
 var interv = 3000;
 var selectElement1, origColor1, selectElement2, origColor2;
 var temp;
@@ -603,11 +603,33 @@ function displayPopup() {
 		document.addEventListener('contextmenu', analyseRightClick);
 
 	} else {
+		
+		//remove all highlighted elements
+		resetEverything();
 		isIframeAdded = false;
 		document.removeEventListener('contextmenu', analyseRightClick);
 		document.body.removeChild(popUpFrame);
+		
 	}
 
+}
+
+function resetEverything(){
+	
+	 firstClick = false;
+	 secondClick = false;
+
+	if(firingElement2!=null){
+		firingElement2.style["backgroundColor"] = origColor2;
+     	}
+		if(firingElement1!=null){
+		firingElement1.style["backgroundColor"] = origColor1;
+		}
+		changeNodeBgToOriginal();
+		chrome.runtime.sendMessage({
+			type : 'backToInitialState'
+		});
+	
 }
 
 function analyseRightClick(e) {
