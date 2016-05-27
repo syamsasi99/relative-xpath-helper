@@ -50,6 +50,16 @@ var handleRequest = function(request, sender, cb) {
 		xpath1.value="";
 		xpath2.value="";
 	}
+	
+	if (request.type === 'backToInitialState') {
+		xpath1.placeholder="Right-click anywhere on the page to select element";
+		xpath1.value="";
+		xpath2.value="";
+		rel_xpath.value="";
+		rel_xpath.placeholder="Right-Click on any two elements...  OR Type in an expression here and hit ENTER key...";
+		final_res.value="";
+		
+	}
 
 };
 
