@@ -111,6 +111,13 @@ window.addEventListener('message', function(event) {
 
 });
 
+
+function flipCSSXpath(){
+	var menu = document.querySelector('.toggle-button')
+	menu.classList.toggle('toggle-button-selected');
+}
+
 document.getElementById("toggle").addEventListener('click', togglePopupHtml);
 rel_xpath.addEventListener('keyup', evaluateXpath);
+document.getElementById("css_button").addEventListener('click', flipCSSXpath);
 chrome.runtime.onMessage.addListener(handleRequest);

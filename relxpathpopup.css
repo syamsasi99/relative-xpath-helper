@@ -1,120 +1,168 @@
 @font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(static/material_icons/MaterialIcons-Regular.eot); 
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(static/material_icons/MaterialIcons-Regular.woff2) format('woff2'),
-       url(static/material_icons/MaterialIcons-Regular.woff) format('woff'),
-       url(static/material_icons/MaterialIcons-Regular.ttf) format('truetype');
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: url(static/material_icons/MaterialIcons-Regular.eot);
+	src: local('Material Icons'), local('MaterialIcons-Regular'),
+		url(static/material_icons/MaterialIcons-Regular.woff2) format('woff2'),
+		url(static/material_icons/MaterialIcons-Regular.woff) format('woff'),
+		url(static/material_icons/MaterialIcons-Regular.ttf)
+		format('truetype');
 }
 
 .material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-
-  -webkit-font-smoothing: antialiased;
-  /* Support for Chrome. */
-  text-rendering: optimizeLegibility;
-
-  -moz-osx-font-smoothing: grayscale;
-
-  font-feature-settings: 'liga';
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px; /* Preferred icon size */
+	display: inline-block;
+	line-height: 1;
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
+	-webkit-font-smoothing: antialiased;
+	/* Support for Chrome. */
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	font-feature-settings: 'liga';
 }
 
 body {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  height: 220px;
-  overflow: hidden;
-  font-family: Roboto, Arial, sans-serif;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	height: 220px;
+	overflow: hidden;
+	font-family: Roboto, Arial, sans-serif;
 }
 
 #extension-overlay {
-  padding: 1rem;
-  max-height: 220px;
-  background: rgba(51, 51, 51, 0.95);
-  display: flex;
-  flex-grow: 1;
-  font-size: 1rem;
-  justify-content: space-between;
-  border: solid 3px #f4c430;
+	padding: 1rem;
+	max-height: 220px;
+	background: rgba(51, 51, 51, 0.95);
+	display: flex;
+	flex-grow: 1;
+	font-size: 1rem;
+	justify-content: space-between;
+	border: solid 3px #f4c430;
 }
 
 .column-left, .column-right {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .column-left {
-  border-right: solid 1px grey;
-  padding-right: 2rem;
+	border-right: solid 1px grey;
+	padding-right: 2rem;
 }
 
 .column-right {
-  flex-grow: 1;
-  margin: 0 2rem;
+	flex-grow: 1;
+	margin: 0 2rem;
 }
 
 label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.9);
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: rgba(255, 255, 255, 0.9);
 }
 
 label[for="rel_xpath"] {
-  color: rgba(255, 198, 22, 0.9);;
+	color: rgba(255, 198, 22, 0.9);;
 }
 
 textarea {
-  font-family: Inconsolata, Courier, monospace;
-  border-radius: 3px;
-  resize: none;
-  min-height: 3rem;
-  padding: 0.5rem;
+	font-family: Inconsolata, Courier, monospace;
+	border-radius: 3px;
+	resize: none;
+	min-height: 3rem;
+	padding: 0.5rem;
 }
 
 #rel_xpath {
-  font-size: 1.25rem;
-  color: rgba(139, 107, 255, 1);
-  width: 75%;
-}
-#final_xpath_result{
-  width: 75%;
+	font-size: 1.25rem;
+	color: rgba(139, 107, 255, 1);
+	width: 75%;
 }
 
-#xpath_1,#xpath_2{
+#final_xpath_result {
+	width: 75%;
+}
+
+#xpath_1, #xpath_2 {
 	font-size: 1.005rem;
 }
+
 .container {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
 }
 
 .controls {
-  color: white;
+	color: white;
 }
 
-#fb{
-position: absolute;
-height: 5px;
-bottom: 50%; 
-right: 100%; 
-left: 85.5%; 
+#fb {
+	position: absolute;
+	height: 5px;
+	bottom: 50%;
+	right: 100%;
+	left: 85.5%;
 }
-#facebook{
-color: white;	
+
+#facebook {
+	color: white;
+}
+
+.toggle-button {
+	background-color: white;
+	margin: 5px 0;
+	border-radius: 20px;
+	border: 2px solid #D0D0D0;
+	height: 24px;
+	cursor: pointer;
+	width: 50px;
+	position: relative;
+	display: inline-block;
+	user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: none;
+}
+
+.toggle-button button {
+	cursor: pointer;
+	outline: 0;
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border-radius: 100%;
+	width: 30px;
+	height: 30px;
+	background-color: white;
+	float: left;
+	margin: -3px 0 0 -3px;
+	border: 2px solid #D0D0D0;
+	transition: left 0.3s;
+}
+
+.toggle-button-selected {
+	background-color: #130081;
+	border: 2px solid #7DA652;
+}
+
+.toggle-button-selected button {
+	left: 26px;
+	top: 0;
+	margin: 0;
+	border: none;
+	width: 24px;
+	height: 24px;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }

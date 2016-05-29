@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Relative XPath Helper",
-  "version": "1.2",
-  "content_security_policy": "script-src 'sha256-gOoYxaS1qFIHZLrU0Z9c6CKpH5B55qS9oXEN3NHWbGw=' https://www.google-analytics.com; object-src 'sha256-gOoYxaS1qFIHZLrU0Z9c6CKpH5B55qS9oXEN3NHWbGw='",
+  "version": "1.2.1",
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "description": "Woohoo, just right click on the first and second element to get the relative xpath. Have Fun!!",
   "background": {
     "page": "relxpathbackground.html"
