@@ -533,15 +533,15 @@ var handleRequest = function(request, sender, cb) {
 
 function changeNodeBg(node){
 	customxpathelementlist.push(node);
-	customxpathelementoriginalbglist.push(node.style["backgroundColor"]);
-	node.style["backgroundColor"]="#2E64FE";
+	customxpathelementoriginalbglist.push(node.style.border);
+	node.style.border="5px groove #2E64FE";
 	
 }
 
 function changeNodeBgToOriginal(){
 	
 	for(var i=0;i<customxpathelementlist.length;i++){
-		customxpathelementlist[i].style["backgroundColor"]=customxpathelementoriginalbglist[i];
+		customxpathelementlist[i].style.border=customxpathelementoriginalbglist[i];
 	}
 	
 	customxpathelementlist.length=0;
@@ -555,10 +555,10 @@ function doEvaluteUserXpath(xpath) {
 		
 		resetXpath1AndXpath2();
 		if(firingElement2!=null){
-		firingElement2.style["backgroundColor"] = origColor2;
+		firingElement2.style.border = origColor2;
      	}
 		if(firingElement1!=null){
-		firingElement1.style["backgroundColor"] = origColor1;
+		firingElement1.style.border = origColor1;
 		}
 		
 
@@ -620,10 +620,10 @@ function resetEverything(){
 	 secondClick = false;
 
 	if(firingElement2!=null){
-		firingElement2.style["backgroundColor"] = origColor2;
+		firingElement2.style.border = origColor2;
      	}
 		if(firingElement1!=null){
-		firingElement1.style["backgroundColor"] = origColor1;
+		firingElement1.style.border = origColor1;
 		}
 		changeNodeBgToOriginal();
 		chrome.runtime.sendMessage({
@@ -652,16 +652,17 @@ function analyseRightClick(e) {
 
 		if (firingElement2 != null) {
 
-			firingElement2.style["backgroundColor"] = origColor2;
-			firingElement1.style["backgroundColor"] = origColor1;
+			firingElement2.style.border = origColor2;
+			firingElement1.style.border = origColor1;
 
 		}
 
 		firingElement1 = node1;
 
-		origColor1 = firingElement1.style["backgroundColor"];
-		firingElement1.style["backgroundColor"] = '#ff0000';
+		origColor1 = firingElement1.style.border;
+		firingElement1.style.border = '5px groove #ff0000';
 		selectElement1 = firingElement1;
+		
 
 	}
 
@@ -674,9 +675,9 @@ function analyseRightClick(e) {
 		xpath2 = getXpath(node2);
 		updateXPath2(xpath2);
 
-		origColor2 = firingElement2.style["backgroundColor"];
+		origColor2 = firingElement2.style.border;
 
-		firingElement2.style["backgroundColor"] = '#F4FA58';
+		firingElement2.style.border = '5px groove #F4FA58';
 		selectElement2 = firingElement2;
 		// bringBackOriginalBackground();
 
@@ -701,8 +702,8 @@ function bringBackOriginalBackground() {
 
 		if ((firstClick == true && secondClick == false)
 				|| (firstClick == true && secondClick == true)) {
-			firingElement1.style["backgroundColor"] = origColor1;
-			firingElement2.style["backgroundColor"] = origColor2;
+			firingElement1.style.border = origColor1;
+			firingElement2.style.border = origColor2;
 
 		}
 
