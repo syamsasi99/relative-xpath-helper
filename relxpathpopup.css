@@ -89,6 +89,17 @@ textarea {
 	width: 75%;
 }
 
+#connect {
+	font-size: 0.5rem;
+	color: white;
+	width: 75%;
+}
+
+#connect > a{
+	
+	color: #c5aa2a;
+}
+
 #final_xpath_result {
 	width: 75%;
 }
@@ -111,8 +122,8 @@ textarea {
 
 #fb {
 	position: absolute;
-	height: 5px;
-	bottom: 50%;
+	height: 1px;
+	bottom: 70%;
 	right: 100%;
 	left: 85.5%;
 }
