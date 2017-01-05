@@ -59,6 +59,10 @@ function removeParenthesis(xpath) {
 
 function findRelXPath(element1, element2, xpath1, xpath2) {
 
+printConsole("In findRelXPath")
+
+
+try{
 	var par1 = element1.parentNode;
 	var par2 = element2.parentNode;
 	var rel_xpath = '';
@@ -72,12 +76,12 @@ function findRelXPath(element1, element2, xpath1, xpath2) {
 		xpath1 = removeParenthesis(xpath1);
 	}
 
-	
+
 	printConsole("xpath1 after removing parenthesis="+xpath1);
 	printConsole("xpath2="+xpath2);
 
    //both are same
-	
+
 	if(element1.isSameNode(element2)){
 		printConsole("Both elements are same");
 
@@ -86,7 +90,7 @@ function findRelXPath(element1, element2, xpath1, xpath2) {
 
 		return;
 	}
-	
+
 	// both has same parent
 	if (par1.isSameNode(par2)) {
 		printConsole("Parent of the elements are same");
@@ -95,7 +99,7 @@ function findRelXPath(element1, element2, xpath1, xpath2) {
 		var previous = element1.previousElementSibling;
 
 		if ((next != null) && (next.isSameNode(element2))) {
-			
+
 			printConsole("Element 2 is just after Element 1");
 			rel_xpath = xpath2 + "/preceding-sibling::*";
 
@@ -103,8 +107,8 @@ function findRelXPath(element1, element2, xpath1, xpath2) {
 			printConsole("Element 1 is just after Element 2");
 			rel_xpath = xpath2 + "/following-sibling::*";
 
-		} 
-		
+		}
+
 		else{
 
 			rel_xpath=xpath2+"/.."+xpath1;
@@ -267,9 +271,18 @@ function findRelXPath(element1, element2, xpath1, xpath2) {
 
 		}
 
+    printConsole("rel_xpath zzzzzz="+rel_xpath)
 		updateRelativeXPath(rel_xpath);
+		return;
 
 	}// if(common!=null)
+}
+catch(err){
+	printConsole("err="+err);
+
+}
+
+updateRelativeXPath("Sorry! It is not possible to calculate relative xpath of two elements between an iframe to document or two iframes. For More details please check http://stackoverflow.com/questions/9942928/how-to-handle-iframe-in-webdriver");
 
 }
 
@@ -331,7 +344,69 @@ function inherit_xpath_from_parents(nodez) {
 
 }
 
+
+function checkHtmlEntities(str){
+
+
+var res =null;
+
+var exp1="&nbsp;";
+var exp2="&lt;";
+var exp3="&gt;";
+var exp4="&amp;";
+var exp5="&quot;";
+var exp6="&apos;";
+var exp7="&pound;";
+var exp8="&yen;";
+var exp9="&euro;";
+var exp10="&copy;";
+var exp11="&reg;";
+
+
+if(str.includes(exp1)){
+res = str.split(exp1);
+}
+else if(str.includes(exp2)){
+res = str.split(exp2);
+}
+else if(str.includes(exp3)){
+res = str.split(exp3);
+}
+else if(str.includes(exp4)){
+res = str.split(exp4);
+}
+else if(str.includes(exp5)){
+res = str.split(exp5);
+}
+else if(str.includes(exp6)){
+res = str.split(exp6);
+}
+else if(str.includes(exp7)){
+res = str.split(exp7);
+}
+else if(str.includes(exp8)){
+res = str.split(exp8);
+}
+else if(str.includes(exp9)){
+res = str.split(exp9);
+}
+else if(str.includes(exp10)){
+res = str.split(exp10);
+}
+else if(str.includes(exp11)){
+res = str.split(exp11);
+}
+else {
+	return str;
+}
+
+return res[0];
+
+}
 function getXpath(node) {
+
+	printConsole("document.activeElement="+document.activeElement)
+
 
 	var attrs = node.attributes;
 	var i = attrs.length;
@@ -340,14 +415,28 @@ function getXpath(node) {
 	var j = 0;
 	var val = '';
 	var count = 0;
+	printConsole("i="+i)
+	printConsole("tagName="+tagName)
+
+
 
 	// no attributes
 	if (i == 0) {
 
 		var text = node.innerHTML;
+		var oldText=text;
+		text= checkHtmlEntities(text);
+		printConsole("text="+text)
 		if ((text.length > 0) && (!text.includes("<"))
 				&& (text.indexOf('\'') == -1) && (text.indexOf('"') == -1)) {
+
+			text= checkHtmlEntities(text);
+			if(oldText==text){
 			val = "//" + tagName + "[text()='" + text + "']";
+		  }
+			else{
+					val = "//" + tagName + "[contains(text(),'" + text + "')]";
+			}
 			count = getXpathCount(val);
 			if (count == 1) {
 				return val;
@@ -379,9 +468,10 @@ function getXpath(node) {
 	}
 	var attrLength = j;
 
+	printConsole("realCount="+realCount)
 	if (realCount == 0) {// undefined case
-
-		var xp = findXpathWithIndex("//"+node.tagName,node);
+		printConsole("tagName="+tagName)
+		var xp = findXpathWithIndex("//"+tagName,node);
 		return xp;
 	}// end of realCount==0
 
@@ -403,13 +493,22 @@ function getXpath(node) {
 					+ "']";
 
 			var text = node.innerHTML;
+			var oldText=text;
+				text= checkHtmlEntities(text);
+				printConsole('text='+text)
 			if ((text.length > 0) && (!text.includes("<"))
 					&& (text.indexOf('\'') == -1) && (text.indexOf('"') == -1)) {
+				if(oldText==text){
 				val = val + "[text()='" + text + "']";
+				}
+				else{
+					val = val + "[contains(text(),'" + text + "')]";
+				}
 			}
+			printConsole("val="+val)
 
 			count = getXpathCount(val);
-
+      printConsole("count hi="+count)
 			if (count == 1) {
 				return val;
 			}
@@ -428,8 +527,19 @@ function getXpath(node) {
 
 function getXpathCount(val) {
 
-	var nodes = document.evaluate(val, document, null, XPathResult.ANY_TYPE,
+var nodes=null;
+ if(document.activeElement== document.querySelector('iframe')){
+
+	 var currentIframe = document.activeElement;
+	 var iDoc = currentIframe.contentWindow  || currentIframe.contentDocument;
+
+	 nodes = iDoc.document.evaluate(val, iDoc.document, null, XPathResult.ANY_TYPE,
 			null);
+ }
+ else{
+	 nodes = document.evaluate(val, document, null, XPathResult.ANY_TYPE,
+			null);
+			}
 	var results = [], nodex;
 
 	while (nodex = nodes.iterateNext()) {
@@ -440,12 +550,41 @@ function getXpathCount(val) {
 }
 
 function findXpathWithIndex(val, node) {
+   printConsole("val="+val)
 
-	var nodes = document.evaluate(val, document, null, XPathResult.ANY_TYPE,
+
+	 var text = node.innerHTML;
+	 var oldText=text;
+	 	text= checkHtmlEntities(text);
+	 printConsole("text in findXpathWithIndex="+text)
+	 if ((text.length > 0) && (!text.includes("<"))
+			 && (text.indexOf('\'') == -1) && (text.indexOf('"') == -1)) {
+				 if(oldText==text){
+			 val=val+"[text()='"+text+"']";
+			 }
+			 else{
+				 val=val+"[contains(text(),'"+text+"')]";
+			 }
+
+	 }
+	var nodes=null;
+	 if(document.activeElement== document.querySelector('iframe')){
+
+		 var currentIframe = document.activeElement;
+		 var iDoc = currentIframe.contentWindow  || currentIframe.contentDocument;
+
+		 nodes = iDoc.document.evaluate(val, iDoc.document, null, XPathResult.ANY_TYPE,
+	 			null);
+	 }
+
+else{
+	 nodes = document.evaluate(val, document, null, XPathResult.ANY_TYPE,
 			null);
+		}
+			printConsole("nodes="+nodes)
 	var results = [], nodex;
 	var index = 0;
-	while (nodex = nodes.iterateNext()) {
+	while (nodex= nodes.iterateNext()) {
 
 		index++;
 
@@ -483,27 +622,44 @@ function updateRelativeXPath(xpath) {
 	var nodex = '';
 
 	try {
-		
+
 		if((xpath.indexOf("/following-sibling::*")>-1) || (xpath.indexOf("/preceding-sibling::*")>-1)){
 			xpath = xpath.substring(0, xpath.length - 1);
 			xpath=xpath+firingElement1.tagName;
 
 		}
+
+		if(document.activeElement== document.querySelector('iframe')){
+
+			var currentIframe = document.activeElement;
+			var iDoc = currentIframe.contentWindow  || currentIframe.contentDocument;
+
+			results = iDoc.document.evaluate(xpath, iDoc.document, null,
+					XPathResult.ANY_TYPE, null);
+		}
+else{
 		results = document.evaluate(xpath, document, null,
 				XPathResult.ANY_TYPE, null);
-
+}
 		var nodex = results.iterateNext();
 
 	} catch (err) {
-		results = "Error occurred while calculating relative xpath "
-				+ err.message;
+		printConsole(err.message)
 	}
 	printConsole("Final Xpath="+xpath);
+
+	var outHTML=  nodex.outerHTML;
+	var tgName= nodex.tagName;
+
+	if(!(isNotEmpty(outHTML))){
+		outHTML=' ';
+		tgName=' ';
+	}
 	chrome.runtime.sendMessage({
 		type : 'relative_xpath',
 		query : xpath,
-		results : nodex.outerHTML,
-		tag : nodex.tagName
+		results : outHTML,
+		tag : tgName
 	});
 };
 
@@ -535,24 +691,24 @@ function changeNodeBg(node){
 	customxpathelementlist.push(node);
 	customxpathelementoriginalbglist.push(node.style.border);
 	node.style.border="5px groove #2E64FE";
-	
+
 }
 
 function changeNodeBgToOriginal(){
-	
+
 	for(var i=0;i<customxpathelementlist.length;i++){
 		customxpathelementlist[i].style.border=customxpathelementoriginalbglist[i];
 	}
-	
+
 	customxpathelementlist.length=0;
 	customxpathelementoriginalbglist.length=0;
-	
+
 }
 
 function doEvaluteUserXpath(xpath) {
 
 	try {
-		
+
 		resetXpath1AndXpath2();
 		if(firingElement2!=null){
 		firingElement2.style.border = origColor2;
@@ -560,27 +716,57 @@ function doEvaluteUserXpath(xpath) {
 		if(firingElement1!=null){
 		firingElement1.style.border = origColor1;
 		}
-		
+
 
 		changeNodeBgToOriginal();
-		
-		
-		
+
+
+   	//document.domain = window.location.hostname;
 		var iframe = document.getElementById("rel_xpath_popup");
+		//Need to include the iframe results as well
+
+
 		var nodes = document.evaluate(xpath, document, null,
 				XPathResult.ANY_TYPE, null);
 		var results = [], nodex;
 
 		while (nodex = nodes.iterateNext()) {
 			results.push(nodex.tagName+"                        "+nodex.outerHTML);
-			results.push("___________________________________________________________________________________________________________________________________________________________");
+			results.push("_____________________________________________________________________________________________________________________________");
 
 			changeNodeBg(nodex);
 		}
 
+try{
+		var z, frames;
+frames = document.getElementsByTagName("iframe");
+for (z = 0; z < frames.length; ++z){
+
+	if(frames[z].id!="rel_xpath_popup"){
+		var currentIframe = frames[z];
+		var iDoc = currentIframe.contentWindow  || currentIframe.contentDocument;
+   //iDoc.document.domain = window.location.hostname;
+		 nodes = iDoc.document.evaluate(xpath, iDoc.document, null,
+				XPathResult.ANY_TYPE, null);
+
+
+		while (nodex = nodes.iterateNext()) {
+			results.push(nodex.tagName+"                        "+nodex.outerHTML+"   [iframe]");
+			results.push("___________________________________________________________________________________________________________________________________________________________");
+
+			changeNodeBg(nodex);
+		}
+	}
+}
+
+}
+catch(err){
+	printConsole(err)
+}
+
 		iframe.contentWindow.postMessage(results, '*');
-		
-	
+
+
 		 firstClick = false;
 		 secondClick = false;
 
@@ -588,34 +774,94 @@ function doEvaluteUserXpath(xpath) {
 	} catch (err) {
 		iframe.contentWindow.postMessage(err.message, '*');
 	}
-	
+
 	//clear the textfields if user selected any element in between
-	
-	
+
+
 }
 
 function displayPopup() {
 
 	// pop up is hidden, add to dom
+	printConsole("domain="+window.location.hostname)
+	var host = window.location.hostname;
+	var hostArr = host.split(".");
+	var lastHost= hostArr[hostArr.length-2]+"."+hostArr[hostArr.length-1]
+	printConsole("lastHost="+lastHost)
+	//document.domain = lastHost;
 	if (!isIframeAdded) {
 		document.body.appendChild(popUpFrame);
 		isIframeAdded = true;
+
+
+
 		document.addEventListener('contextmenu', analyseRightClick);
 
+
+	var all_iframes = document.evaluate("//iframe", document, null, XPathResult.ANY_TYPE,
+			null);
+	var iframe;
+
+	while (iframe = all_iframes.iterateNext()) {
+		try{
+		printConsole(iframe.id)
+		if(iframe.id!="rel_xpath_popup"){
+		var iDoc = iframe.contentWindow  || iframe.contentDocument;
+		printConsole("iDoc="+iDoc)
+			printConsole("iDoc.document="+iDoc.document)
+			printConsole("-----------------------")
+			//iDoc.document.domain = lastHost;
+    iDoc.document.addEventListener('contextmenu',analyseRightClick);
+		}
+		}
+		catch(err){
+   printConsole("error="+err)
+		}
+
+
+
+	}
+
+
+
 	} else {
-		
+
 		//remove all highlighted elements
 		resetEverything();
 		isIframeAdded = false;
 		document.removeEventListener('contextmenu', analyseRightClick);
+
+			var all_iframes = document.evaluate("//iframe", document, null, XPathResult.ANY_TYPE,
+					null);
+			var iframe;
+
+			while (iframe = all_iframes.iterateNext()) {
+				try{
+				printConsole(iframe.id)
+				var iDoc = iframe.contentWindow  || iframe.contentDocument;
+				printConsole("iDoc="+iDoc)
+					printConsole("iDoc.document="+iDoc.document)
+					printConsole("-----------------------")
+					//iDoc.document.domain = window.location.hostname;
+		    iDoc.document.removeEventListener('contextmenu',analyseRightClick);
+				}
+				catch(err){
+		   printConsole("error="+err)
+				}
+
+
+
+			}
+
 		document.body.removeChild(popUpFrame);
-		
+
 	}
 
 }
 
+
 function resetEverything(){
-	
+
 	 firstClick = false;
 	 secondClick = false;
 
@@ -629,11 +875,11 @@ function resetEverything(){
 		chrome.runtime.sendMessage({
 			type : 'backToInitialState'
 		});
-	
+
 }
 
 function analyseRightClick(e) {
-	
+
 	try{
 
 	e.preventDefault();
@@ -646,8 +892,13 @@ function analyseRightClick(e) {
 		firstClick = true;
 		secondClick == false;
 		node1 = e.srcElement;
-
+    printConsole("node1="+node1)
 		xpath1 = getXpath(node1);
+		printConsole("xpath1="+xpath1)
+
+		// if xpath1 is undefined, this element may not be in main document, so traverse all the iframes
+
+
 		updateXPath1(xpath1);
 
 		if (firingElement2 != null) {
@@ -662,7 +913,7 @@ function analyseRightClick(e) {
 		origColor1 = firingElement1.style.border;
 		firingElement1.style.border = '5px groove #ff0000';
 		selectElement1 = firingElement1;
-		
+
 
 	}
 
@@ -689,7 +940,7 @@ function analyseRightClick(e) {
 		secondClick = false;
 
 	}
-	
+
 	}
 	catch(err){
 		printConsole("Err Happened, "+err.message);

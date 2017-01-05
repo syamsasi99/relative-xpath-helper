@@ -41,16 +41,19 @@ var handleRequest = function(request, sender, cb) {
 			if(request.results==''){
 				request.results="Empty Element";
 			}
+
+      //console.log("test="+request.tag)
+
 			final_res.value = request.tag+"                        "+request.results;
 		}
 	}
-	
+
 	if (request.type === 'reset') {
 		xpath1.placeholder="Right-click anywhere on the page to select element";
 		xpath1.value="";
 		xpath2.value="";
 	}
-	
+
 	if (request.type === 'backToInitialState') {
 		xpath1.placeholder="Right-click anywhere on the page to select element";
 		xpath1.value="";
@@ -58,7 +61,7 @@ var handleRequest = function(request, sender, cb) {
 		rel_xpath.value="";
 		rel_xpath.placeholder="Right-Click on any two elements...  OR Type in an expression here and hit ENTER key...";
 		final_res.value="";
-		
+
 	}
 
 };
@@ -96,7 +99,10 @@ function evaluateXpath(e) {
 window.addEventListener('message', function(event) {
 
 	var data = String(event.data);
+	//console.log("data="+data)
 	var xpathList = data.split(",");
+	//console.log("xpathList="+xpathList)
+
 	var res = '';
 	if(data === ''){
 		res='No Result Found!!'
@@ -107,7 +113,17 @@ window.addEventListener('message', function(event) {
 		res = res + xpathList[i] + "\n";
 	}
 }
-	final_res.value = res;
+
+//console.log("res="+res)
+if(!res.includes("[object Object]")){
+	if(res.startsWith("Blocked a frame")){
+		final_res.value = "Sorry!! We can't execute the query due to cross origin policy!";
+
+	}
+else{
+final_res.value = res;
+}
+}
 
 });
 
