@@ -18,6 +18,7 @@ var attr = null;
 var normal = true;
 var customxpathelementlist=[];
 var customxpathelementoriginalbglist=[];
+var mousePosition = {x:0, y:0};
 
 
 function printConsole(msg){
@@ -601,17 +602,19 @@ function displayPopup() {
 		document.body.appendChild(popUpFrame);
 		isIframeAdded = true;
 		document.addEventListener('contextmenu', analyseRightClick);
-
+		document.addEventListener('mousemove', captureCoordinates);
+		document.addEventListener('keydown',checkKeyEvent);
 	} else {
 		
 		//remove all highlighted elements
 		resetEverything();
 		isIframeAdded = false;
 		document.removeEventListener('contextmenu', analyseRightClick);
+		document.removeEventListener('mousemove', captureCoordinates);
+		document.removeEventListener('keydown',checkKeyEvent);
 		document.body.removeChild(popUpFrame);
 		
 	}
-
 }
 
 function resetEverything(){
@@ -630,6 +633,80 @@ function resetEverything(){
 			type : 'backToInitialState'
 		});
 	
+}
+
+function checkKeyEvent(e) {
+	if (e.ctrlKey) {
+
+		try{
+
+			changeNodeBgToOriginal();
+		
+		
+			if (firstClick == false && secondClick == false) {
+				printConsole("Clicked on First Element");
+				firstClick = true;
+				secondClick == false;
+				node1 = document.elementFromPoint(mousePosition.x, mousePosition.y);
+		
+				xpath1 = getXpath(node1);
+				updateXPath1(xpath1);
+		
+				if (firingElement2 != null) {
+		
+					firingElement2.style.border = origColor2;
+					firingElement1.style.border = origColor1;
+		
+				}
+		
+				firingElement1 = node1;
+		
+				origColor1 = firingElement1.style.border;
+				firingElement1.style.border = '5px groove #ff0000';
+				selectElement1 = firingElement1;
+				
+		
+			}
+		
+			else if (firstClick == true && secondClick == false) {
+				printConsole("Clicked on Second Element");
+				secondClick = true;
+				node2 = document.elementFromPoint(mousePosition.x, mousePosition.y);
+				firingElement2 = node2;
+		
+				xpath2 = getXpath(node2);
+				updateXPath2(xpath2);
+		
+				origColor2 = firingElement2.style.border;
+		
+				firingElement2.style.border = '5px groove #F4FA58';
+				selectElement2 = firingElement2;
+				// bringBackOriginalBackground();
+		
+				// Element 1 and Element 2 are at same level
+		
+				findRelXPath(node1, node2, xpath1, xpath2);
+		
+				firstClick = false;
+				secondClick = false;
+		
+			}
+			
+			}
+			catch(err){
+				printConsole("Err Happened, "+err.message);
+			}
+		
+		
+	  }
+}
+
+function captureCoordinates(e) {
+	var x = e.clientX;    
+	var y = e.clientY;   
+	var coor = "X coords: " + x + ", Y coords: " + y;
+	mousePosition.x = x
+	mousePosition.y = y
 }
 
 function analyseRightClick(e) {
